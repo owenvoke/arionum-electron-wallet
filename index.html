@@ -1,0 +1,113 @@
+<html>
+
+<head>
+  <title>Home</title>
+
+  <link rel="stylesheet" href="assets/css/dashboard-main.css">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/font-face.css" media="all">
+</head>
+
+<body>
+
+  <header>
+    <div class="buttons">
+      <div class="btn min-btn">
+        <p>🗕</p>
+      </div>
+      <div class="btn max-btn">
+        <p>🗖</p>
+      </div>
+      <div class="btn close-btn">
+        <p>✕</p>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="header">
+    <div class="logo">
+      <embed src="assets/images/aro-web-white.svg" class="aro-logo">
+    </div>
+
+
+    <div class="tabs">
+
+      <a class="site_loader" href="#">Home</a>
+      <a class="site_loader" href="#">Send</a>
+      <a class="site_loader" href="#">Receive</a>
+      <a class="site_loader" href="#">Information</a>
+
+    </div>
+
+  </div>
+
+
+  <div class="content animated">
+
+    <div class="balance_view">
+      <div class="item-box top-box animated">
+        <div class="item-box-content">
+          <div class="item-box">
+            <div class="icon">
+              <img src="assets/images/only_logo.svg" class="top-icon">
+            </div>
+            <div class="text">
+              <h2 id="balance">0.00000000</h2>
+              <span>Your balance</span>
+            </div>
+            <div class="text2">
+              <h2 id="peer">peer27.arionum.com</h2>
+              <span>Connected peer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOME CONTENT -->
+
+
+
+    <div class="loader">
+      <svg version="1.1" id="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+          <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+            <animateTransform attributeType="xml"
+              attributeName="transform"
+              type="rotate"
+              from="0 25 25"
+              to="360 25 25"
+              dur="0.6s"
+              repeatCount="indefinite"/>
+        </path>
+      </svg>
+    </div>
+
+    <div class="site_content"></div>
+
+
+  </div>
+
+</body>
+<script>
+  if (typeof module === 'object') {
+    window.module = module;
+    module = undefined;
+  }
+
+</script>
+<script src="assets/js/store.js" charset="utf-8"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/Chart.bundle.min.js" charset="utf-8"></script>
+<script src="assets/js/animator.js" charset="utf-8"></script>
+<script src="assets/js/aro.js" charset="utf-8"></script>
+<script src="assets/js/aro_api.js" charset="utf-8"></script>
+<script src="assets/js/qrcode.min.js" charset="utf-8"></script>
+
+<script src="assets/js/home.js" charset="utf-8"></script>
+<script>
+  if (window.module) module = window.module;
+
+</script>
+
+</html>

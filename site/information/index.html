@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="site/information/css/style.css">
+
+<div class='form'>
+  <h1>Information</h1>
+  <div class='form-row'>
+    <div class='input-group'>
+      <label for=''>Your Address:</label>
+      <input class="address selectable" placeholder='' type='text' disabled>
+    </div>
+  </div>
+  <div class='form-row'>
+    <div class='input-group'>
+      <label for=''>Your PublicKey:</label>
+      <input class="publickey selectable" placeholder='' type='text' disabled>
+    </div>
+  </div>
+  <div class='form-row'>
+    <div class='input-group'>
+      <label for=''>Your PrivateKey:</label>
+      <input class="privatekey blurred selectable" placeholder='' type='text' disabled>
+      <a class="button privatekeybutton">👁</a>
+    </div>
+  </div>
+
+  <div class='qrView'>
+    <label for=''>Mobile Login QR</label>
+    <div id="qrcode" class="blurred"></div>
+    <br>
+    <a class="button mobileQRbutton">👁</a>
+  </div>
+</div>
+
+<script src="site/information/js/index.js" charset="utf-8"></script>

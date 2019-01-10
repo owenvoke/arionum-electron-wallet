@@ -1,0 +1,21 @@
+{
+  "name": "ArionumWallet",
+  "version": "1.0.0",
+  "description": "The Arionum Wallet",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "Arionum",
+    "Wallet",
+    "Coin",
+    "ARO",
+    "crypto"
+  ],
+  "author": "Cuby",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^3.0.7"
+  }
+}

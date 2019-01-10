@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="site/receive/css/style.css">
+
+<div class='form'>
+  <h1>Receive Transactions</h1>
+  <div class='form-row'>
+    <div class='input-group'>
+      <label for=''>Your Address:</label>
+      <input class="address" placeholder='' type='text'>
+    </div>
+  </div>
+
+  <div class='form-row'>
+    <div class='input-group'>
+      <label for=''>Your Alias:</label>
+      <input class="alias" placeholder='' type='text'>
+    </div>
+  </div>
+
+  <div class='qrView'>
+    <label for=''>Receive QR-Code:</label>
+    <div id="qrcode" class="blurred"></div>
+    <br>
+  </div>
+  <div class='form-row small'>
+    <div class='input-group'>
+      <input class="address" placeholder='Value' type='number'>
+      <a class="button">Generate</a>
+    </div>
+  </div>
+</div>
+
+<script src="site/receive/js/index.js" charset="utf-8"></script>

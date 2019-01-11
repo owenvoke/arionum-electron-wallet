@@ -9,11 +9,9 @@ const {
 let mainWindow
 
 /*
-
   width: 522,
   height: 819,
 */
-
 
 
 
@@ -47,7 +45,14 @@ function createWindow() {
   } );
 
 
-  mainWindow.loadFile( 'login.html' )
+  if ( checkData( "publickey" ) == "" )
+    mainWindow.loadFile( 'login.html' );
+  else {
+    mainWindow.setResizable( false );
+    mainWindow.setSize( 1318, 790, true );
+    mainWindow.center();
+    mainWindow.loadFile( 'index.html' );
+  }
 
 
   mainWindow.on( 'closed', function () {
@@ -59,6 +64,24 @@ function createWindow() {
 
 }
 
+
+function checkData( key ) {
+  const electron = require( 'electron' );
+  const path = require( 'path' );
+  const fs = require( 'fs' );
+  const userDataPath = ( electron.app || electron.remote.app ).getPath( 'userData' );
+  var paths = path.join( userDataPath, "arionum-config" + '.json' );
+  var data = parseDataFile( paths, "" );
+  return data[ key ];
+}
+
+function parseDataFile( filePath, defaults ) {
+  try {
+    return JSON.parse( fs.readFileSync( filePath ) );
+  } catch ( error ) {
+    return defaults;
+  }
+}
 
 app.on( 'ready', createWindow )
 

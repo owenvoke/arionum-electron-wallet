@@ -625,9 +625,8 @@ header .buttons {
   height: 100%;
   position: absolute;
   -webkit-app-region: no-drag;
-  top: 50%;
   right: 0;
-  transform: translateY(-50%);
+  z-index: 1000;
 }
 
 header .buttons .btn {

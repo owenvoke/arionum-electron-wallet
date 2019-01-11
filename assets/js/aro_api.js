@@ -152,3 +152,24 @@ function getJSONP( url, success ) {
     } );
   }, 1 );
 }
+
+/* WINDOW */
+
+
+
+var remote = require( 'electron' ).remote;
+$( ".min-btn" ).click( function () {
+  var window = remote.getCurrentWindow();
+  window.minimize();
+} );
+
+$( ".max-btn" ).click( function () {
+  var window = remote.getCurrentWindow();
+  if ( !login )
+    window.maximize();
+} );
+
+$( ".close-btn" ).click( function () {
+  var window = remote.getCurrentWindow();
+  window.close();
+} );

@@ -3,6 +3,11 @@
   padding: 2em 2em;
 }
 
+.site_content {
+
+  overflow: scroll !important;
+}
+
 .form .form-row {
   display: -webkit-box;
   display: -moz-box;
@@ -18,6 +23,7 @@
   flex-direction: row;
   margin: 0 0 30px;
 }
+
 
 
 .small .input-group {
@@ -82,6 +88,7 @@
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 
+
 .form h1 {
   opacity: 0.8;
 }
@@ -112,11 +119,23 @@
   left: 10px;
 }
 
-.input-group .button {
+.input-group .button:not(.logout) {
   position: absolute;
   font-size: 1.4em;
   padding: 0.3em 0.5em !important;
   border-radius: 180px;
   bottom: 0;
   left: 10px;
+}
+
+.logout {
+  position: absolute !important;
+  right: 0;
+  font-size: 0.8em;
+}
+
+.top-corner {
+  position: absolute;
+  top: 40px;
+  right: 0;
 }

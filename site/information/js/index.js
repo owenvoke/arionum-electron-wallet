@@ -31,13 +31,54 @@ $( ".privatekey" ).val( privatekey );
 
 
 $( ".mobileQRbutton" ).click( function () {
-  $( this ).hide();
-  $( "#qrcode" ).removeClass( "blurred" );
-  updateQRCode( address + "|" + privatekey + "|" + publickey, 190 );
+  showModal( "Show your PrivateKey",
+    "Your PrivateKey should <b style='color:red'>never</b> get into any other persons hand! <b>Refain from sharing this key!</b> " + "<br>" + "<br>" +
+    "<i>Enter your Wallet-Password</i>",
+    "password",
+    function ( password ) {
+      var decrypted;
+      try {
+        decrypted = CryptoJS.AES.decrypt( privatekey, password );
+        updateQRCode( address + "|" + decrypted.toString( CryptoJS.enc.Utf8 ) + "|" + publickey, 190 );
+        $( ".mobileQRbutton" ).hide();
+        $( "#qrcode" ).removeClass( "blurred" );
+      } catch ( e ) {
+        console.log( e );
+        $( $( ".form-row .input-group label" ) ).css( "color", "red" );
+        setTimeout( function () {
+          $( $( ".form-row .input-group label" ) ).css( "color", "" );
+        }, 1200 );
+      }
+    }, false, true );
 } );
 
 $( ".privatekeybutton" ).click( function () {
-  $( this ).hide();
-  $( ".privatekey" ).removeClass( "blurred" );
+  showModal( "Show your PrivateKey",
+    "Your PrivateKey should <b style='color:red'>never</b> get into any other persons hand! <b>Refain from sharing this key!</b> " + "<br>" + "<br>" +
+    "<i>Enter your Wallet-Password</i>",
+    "password",
+    function ( password ) {
+      var decrypted;
+      try {
+        decrypted = CryptoJS.AES.decrypt( privatekey, password );
+        $( ".privatekey" ).val( decrypted.toString( CryptoJS.enc.Utf8 ) );
+        $( ".privatekeybutton" ).hide();
+        $( ".privatekey" ).removeClass( "blurred" );
+      } catch ( e ) {
+        console.log( e );
+        $( $( ".form-row .input-group label" ) ).css( "color", "red" );
+        setTimeout( function () {
+          $( $( ".form-row .input-group label" ) ).css( "color", "" );
+        }, 1200 );
+      }
+    }, false, true );
+} );
 
+
+$( ".logout" ).click( function () {
+  store.set( "publickey", "" );
+  store.set( "privatekey", "" );
+
+
+  location.replace( "./login.html" );
 } );

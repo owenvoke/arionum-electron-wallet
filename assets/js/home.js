@@ -57,7 +57,7 @@ function showDialogue( title, content, question, accept, close_disabled ) {
 
 
 
-function showModal( title, content, input_name, done ) {
+function showModal( title, content, input_name, done, capitalisation, password ) {
 
   if ( $( '.dialogue_wrapper' ) )
     $( '.dialogue_wrapper' ).remove();
@@ -69,7 +69,7 @@ function showModal( title, content, input_name, done ) {
   dialogue.append( '<i class="close"></i>' );
   dialogue.append( '<h1>' + title + '</h1>' );
   dialogue.append( '<p>' + content + '</p>' );
-  dialogue.append( '<input class="input_dialogue" placeholder="' + input_name + '" type="name"></input>' );
+  dialogue.append( '<input class="input_dialogue ' + ( capitalisation ? "capitalisation" : "" ) + '" placeholder="' + input_name + '" type="' + ( password ? "password" : "name" ) + '"></input>' );
 
   $( ".close" ).click( function () {
     $( '.dialogue_wrapper' ).remove();

@@ -21,6 +21,10 @@ var publickey = store.get( "publickey" );
 var privatekey = store.get( "privatekey" );
 var alias = "";
 
+if ( typeof login == "undefined" )
+  if ( publickey == "" )
+    location.replace( "login.html" );
+
 //<===DEPRECATED===>
 var address = "";
 address = aro.getAddress( publickey );

@@ -1,18 +1,15 @@
-const store = new Store( {
-  configName: 'arionum-config',
-  defaults: {
-    publickey: '',
-    privateCoin: ''
-  }
-} );
+console.log( "resize" );
 
-if ( store.get( "publickey" ) )
+if ( store.get( "publickey" ) != "" )
   location.replace( "./index.html" );
 
-const {
-  app
-} = require( 'electron' );
-app.send( 'resizable-disable' )
+setTimeout( function () {
+  const ipc = require( 'electron' ).ipcRenderer
+  ipc.send( 'resizable-disable' );
+  ipc.send( 'resize-login' );
+
+}, 10 );
+
 
 $( ".button_choosefile" ).click( function () {
   const {

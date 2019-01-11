@@ -161,7 +161,7 @@ body {
   top: 3em;
 
   height: 4em;
-  width: calc( 100% - 4em);
+  width: calc(100% - 4em);
 
   margin: 2em;
 
@@ -179,7 +179,7 @@ body {
 }
 
 .content.done {
-  height: calc( 100% - 3em - 4em);
+  height: calc(100% - 3em - 4em);
 }
 
 
@@ -449,6 +449,9 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.capitalisation {
   text-transform: uppercase
 }
 
@@ -564,6 +567,7 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   0% {
     background-position: -50% center, right center, left center;
   }
+
   100% {
     background-position: 150% center, right center, left center;
   }
@@ -573,6 +577,7 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   0% {
     background-position: -50% center, right center, left center;
   }
+
   100% {
     background-position: 150% center, right center, left center;
   }

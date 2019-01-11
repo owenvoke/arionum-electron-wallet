@@ -161,8 +161,8 @@ body {
   position: absolute;
 
   top: 10em;
-  width: calc( 100% - 8em);
-  height: calc( 100% - 8em - 10em);
+  width: calc(100% - 8em);
+  height: calc(100% - 8em - 10em);
 
   margin: 4em;
   border-radius: 20px;
@@ -691,6 +691,7 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   0% {
     background-position: -50% center, right center, left center;
   }
+
   100% {
     background-position: 150% center, right center, left center;
   }
@@ -700,6 +701,7 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   0% {
     background-position: -50% center, right center, left center;
   }
+
   100% {
     background-position: 150% center, right center, left center;
   }
@@ -769,4 +771,10 @@ header .buttons .btn p {
   transform: translate(-50%, -50%);
   font-size: 16px;
   color: rgba(255, 255, 255, 0.4);
+}
+
+.button_choosefile {
+  font-size: 18px !important;
+  text-align: center;
+  width: calc(100% - 20px);
 }

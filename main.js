@@ -2,6 +2,7 @@ const electron = require( 'electron' )
 const {
   app,
   ipcMain,
+  ipcRenderer,
   BrowserWindow
 } = require( 'electron' )
 
@@ -14,23 +15,37 @@ let mainWindow
 */
 
 
+
+
 function createWindow() {
   mainWindow = new BrowserWindow( {
     webPreferences: {
       webSecurity: false
     },
-    height: 819,
-    width: 522,
+    height: 748,
+    width: 468,
     transparent: true,
     frame: false
   } )
 
-  ipcMain.on( 'resizable-enable', ( event, arg ) => {
-    mainWindow.setResizable( true );
-  } )
-  ipcMain.on( 'resizable-disable', ( event, arg ) => {
-    mainWindow.setResizable( false );
-  } )
+  mainWindow.webContents.on( 'will-navigate', function ( event, newUrl ) {
+    var new_site = newUrl.split( "/" )[ newUrl.split( "/" ).length - 1 ] + "";
+    new_site = new_site.replace( ".html", "" );
+
+    if ( new_site == "index" ) {
+      //mainWindow.setResizable( true );
+      mainWindow.setResizable( false );
+      mainWindow.setSize( 1318, 790, true );
+      mainWindow.center();
+    }
+    if ( new_site == "login" ) {
+      mainWindow.setResizable( true );
+      mainWindow.setSize( 468, 748, true );
+      mainWindow.center();
+      mainWindow.setResizable( false );
+    }
+  } );
+
 
   mainWindow.loadFile( 'login.html' )
 
@@ -40,12 +55,10 @@ function createWindow() {
   } )
 
 
+
+
 }
 
-ipcMain.on( 'resize-dashboard', ( event, arg ) => {
-  mainWindow.setSize( 1318, 730 );
-  mainWindow.center();
-} );
 
 app.on( 'ready', createWindow )
 
@@ -55,9 +68,7 @@ app.on( 'uncaughtException', function ( error ) {
 } );
 
 app.on( 'window-all-closed', function () {
-  if ( process.platform !== 'darwin' ) {
-    app.quit()
-  }
+  app.exit();
 } )
 
 app.on( 'activate', function () {

@@ -69,7 +69,7 @@ $( ".alias_buy" ).click( function () {
         }
       } );
 
-    } );
+    }, true );
 
 
 } );

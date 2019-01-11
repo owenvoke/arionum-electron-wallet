@@ -5,6 +5,7 @@ const {
   ipcRenderer,
   BrowserWindow
 } = require( 'electron' )
+var path = require( 'path' )
 
 let mainWindow
 
@@ -23,7 +24,8 @@ function createWindow() {
     height: 748,
     width: 468,
     transparent: true,
-    frame: false
+    frame: false,
+    icon: path.join( __dirname, 'assets/icons/64x64.png' )
   } )
 
   mainWindow.webContents.on( 'will-navigate', function ( event, newUrl ) {
@@ -67,19 +69,19 @@ function createWindow() {
 
 function checkData( key ) {
   const electron = require( 'electron' );
-  const path = require( 'path' );
   const fs = require( 'fs' );
   const userDataPath = ( electron.app || electron.remote.app ).getPath( 'userData' );
   var paths = path.join( userDataPath, "arionum-config" + '.json' );
-  var data = parseDataFile( paths, "" );
-  return data[ key ];
+  var data = parseDataFile( paths, key );
+  return data;
 }
 
-function parseDataFile( filePath, defaults ) {
+function parseDataFile( filePath, key ) {
   try {
-    return JSON.parse( fs.readFileSync( filePath ) );
+    const fs = require( 'fs' );
+    return JSON.parse( fs.readFileSync( filePath ) )[ key ];
   } catch ( error ) {
-    return defaults;
+    return "";
   }
 }
 

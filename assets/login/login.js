@@ -26,9 +26,11 @@ $( ".button_choosefile" ).click( function () {
 function requestPasswordWithFile( path ) {
   const fs = require( "fs" );
   var data = fs.readFileSync( path ) + "";
+
   $( $( ".form-row" )[ 1 ] ).hide();
   $( ".button_choosefile" ).hide();
   $( ".button_signup" ).hide();
+  $( "h1" ).text( "Security" );
   $( $( ".form-row .input-group label" ) ).text( "Password" );
   file = true;
   $( ".button" ).click( function () {
@@ -81,6 +83,10 @@ $( ".button" ).click( function () {
 
 
 function createWallet() {
+  requestPasswordAndLogin();
+}
+
+function requestPasswordAndLogin() {
   var password = $( ".field1" ).val();
   var password2 = $( ".field2" ).val();
 
@@ -121,5 +127,55 @@ function createWallet() {
 }
 
 function loginWithKeys() {
+  var private = $( ".field2 " ).val();
+  if ( private == "" )
+    private = $( ".field1" ).val();
+  var encoded = "arionum:" + private + ":" + $( ".field1" ).val();
+  console.log( encoded );
+  var keypair = aro.decodeKeypair( encoded );
 
+  if ( $( ".field2 " ).val() != "" ) {
+    $( ".field1" ).val( "" );
+    $( ".field2 " ).val( "" );
+    $( "h1" ).text( "Security" );
+    $( ".button_choosefile" ).hide();
+    $( ".button_signup" ).hide();
+    $( ".button" ).text( "Enter" );
+    $( $( ".form-row .input-group label" )[ 0 ] ).text( "Password" );
+    $( $( ".form-row .input-group label" )[ 1 ] ).text( "Repeat Password" );
+    file = true;
+    $( ".button" ).click( function () {
+
+      const fs = require( "fs" );
+      const path = require( 'path' );
+      const userDataPath = ( electron.app || electron.remote.app ).getPath( 'userData' );
+      var paths = path.join( userDataPath, 'wallet.aro' );
+      aro.encryptAro( keypair.encoded, $( ".field2 " ).val() ).then( encrypt => {
+        fs.writeFileSync( paths, encrypt, 'utf-8' );
+      } );
+      requestPasswordWithFile( paths );
+    } );
+  } else {
+    const fs = require( "fs" );
+    const path = require( 'path' );
+    const userDataPath = ( electron.app || electron.remote.app ).getPath( 'userData' );
+    var paths = path.join( userDataPath, 'wallet.aro' );
+    fs.writeFileSync( paths, encoded, 'utf-8' );
+
+    var data = fs.readFileSync( paths ) + "";
+    try {
+      keypair = aro.decodeKeypair( data );
+      store.set( 'publickey', keypair.publicCoin );
+      store.set( 'privatekey', CryptoJS.AES.encrypt( keypair.privateCoin, $( ".field1" ).val() ) + "" );
+      location.replace( "./index.html" );
+    } catch ( e ) {
+      $( $( ".form-row .input-group label" ) ).css( "color", "red" );
+      $( ".field1" ).val( "" );
+      setTimeout( function () {
+        $( $( ".form-row .input-group label" ) ).css( "color", "" );
+      }, 1200 );
+      console.log( e );
+    }
+
+  }
 }

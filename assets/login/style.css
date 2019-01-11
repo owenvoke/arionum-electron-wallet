@@ -115,44 +115,6 @@ body {
   flex-direction: row;
 }
 
-.tabs a {
-  text-decoration: none;
-  color: white;
-
-  flex-grow: 1;
-  flex: 1 0 auto;
-
-
-  padding: 0px 1em;
-}
-
-.tabs a:hover {
-  color: #1cbfff;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.balance {
-  position: absolute;
-  left: 17em;
-  top: 0.8em;
-
-  color: white;
-  margin: 0;
-}
-
-.balance h2 {
-  font-weight: bold;
-  margin: 0;
-  font-size: 0.9em;
-}
-
-.balance h3 {
-  margin: 0;
-  font-size: 1.4em;
-}
-
-
 
 
 /*CONTENT*/
@@ -160,11 +122,11 @@ body {
 .content {
   position: absolute;
 
-  top: 10em;
-  width: calc(100% - 8em);
-  height: calc(100% - 8em - 10em);
+  top: 100px;
+  width: calc(100% - 60px);
+  height: calc(100% - 60px - 120px);
 
-  margin: 4em;
+  margin: 30px;
   border-radius: 20px;
   background-color: white;
 
@@ -177,26 +139,6 @@ body {
   border-bottom-right-radius: 20px !important;
 }
 
-.animated {
-  -webkit-transition: 1s ease-in-out;
-  -moz-transition: 1s ease-in-out;
-  -o-transition: 1s ease-in-out;
-  transition: 1s ease-in-out;
-}
-
-.animated_fast {
-  -webkit-transition: 0.001s ease-in-out;
-  -moz-transition: 0.001s ease-in-out;
-  -o-transition: 0.001s ease-in-out;
-  transition: 0.001s ease-in-out;
-}
-
-.animated03 {
-  -webkit-transition: 0.3s ease-in-out;
-  -moz-transition: 0.3s ease-in-out;
-  -o-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-}
 
 
 
@@ -432,7 +374,7 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
 
 .form {
   position: relative;
-  padding: 2em 2em;
+  padding: 10px 10px;
   height: 100%;
 }
 
@@ -468,7 +410,7 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   width: 100%;
   margin: 0 0 10px;
   color: #00A6EA;
-  font-size: 2em;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -489,7 +431,7 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   background-clip: padding-box;
   padding: 15px;
   color: #999;
-  font-size: 2.3em;
+  font-size: 17px;
   font-weight: 700;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -504,35 +446,35 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
 .form .button {
   position: absolute;
 
-  right: 0.8em;
-  bottom: 0.8em;
+  right: 10px;
+  bottom: 12px;
 
   background-image: -moz-linear-gradient(90deg, #1cbfff 0, #00a4e6 100%);
   background-image: -webkit-linear-gradient(90deg, #1cbfff 0, #00a4e6 100%);
 
   border-radius: 20px;
-  font-size: 2.3em;
+  font-size: 21px;
   color: #fff !important;
-  padding: 0.3em 0.7em;
-  transition: 0.3s ease-in-out;
+  padding: 7px 16px;
 
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 
 .form .button_signup {
+
+
   position: absolute;
 
-  left: 0.8em;
-  bottom: 0.8em;
+  left: 10px;
+  bottom: 12px;
 
   background-image: -moz-linear-gradient(90deg, #1cbfff 0, #00a4e6 100%);
   background-image: -webkit-linear-gradient(90deg, #1cbfff 0, #00a4e6 100%);
 
   border-radius: 20px;
-  font-size: 2.3em;
+  font-size: 21px;
   color: #fff !important;
-  padding: 0.3em 0.7em;
-  transition: 0.3s ease-in-out;
+  padding: 7px 16px;
 
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
@@ -548,17 +490,16 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   background-image: -webkit-linear-gradient(90deg, #1cbfff 0, #00a4e6 100%);
 
   border-radius: 20px;
-  font-size: 2.3em;
+  font-size: 19px;
   color: #fff !important;
-  padding: 0.3em 0.7em;
-  transition: 0.3s ease-in-out;
+  padding: 7px 7px;
 
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 
 .form h1 {
   text-align: center;
-  font-size: 4em;
+  font-size: 37px;
   width: 100%;
   opacity: 0.8;
 }
@@ -649,7 +590,6 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   background-size: 100px 30px, 130px 30px, 130px 30px;
   background-position: -20% center, right center, left center;
   background-repeat: no-repeat, no-repeat, no-repeat;
-  transition: opacity 0.2s ease, width 0.8s ease-out, background-color 1s ease, border-color 0.3s ease, box-shadow 1s ease;
   -webkit-animation: pulse 2s ease-out infinite;
   animation: pulse 2s ease-out infinite;
   background-color: #1cbfff;

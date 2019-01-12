@@ -165,7 +165,7 @@ $( ".min-btn" ).click( function () {
 
 $( ".max-btn" ).click( function () {
   var window = remote.getCurrentWindow();
-  if ( !login )
+  if ( typeof login == "undefined" )
     window.maximize();
 } );
 

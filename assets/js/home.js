@@ -3,7 +3,7 @@ function loadView( name ) {
   $( ".content" ).removeClass( "done" );
   $( ".site_content" ).empty();
   setTimeout( function () {
-    $( ".site_content" ).load( 'site/' + name + '/index.html', function () {
+    $( ".site_content" ).load( 'site/' + name.toLowerCase() + '/index.html', function () {
       $( ".content" ).addClass( "done" );
       $( ".loader" ).hide();
     } );

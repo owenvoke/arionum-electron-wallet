@@ -2,16 +2,13 @@
 
 <head>
   <title>Login</title>
-
   <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" media="all">
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/libraries/Bootstrap.css">
   <link rel="stylesheet" href="assets/login/style.css">
-  <link rel="stylesheet" href="assets/css/font-face.css" media="all">
+  <link rel="stylesheet" href="assets/fonts/font-face.css" media="all">
 </head>
 
-
 <body>
-
   <header>
     <div class="buttons">
       <div class="btn min-btn">
@@ -32,10 +29,7 @@
     </div>
   </div>
 
-
   <div class="content">
-
-
     <div class="loader">
       <svg version="1.1" id="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
         <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
@@ -45,7 +39,6 @@
     </div>
 
     <div class="site_content">
-
       <div class='form'>
         <h1>Login</h1>
         <div class='form-row'>
@@ -54,26 +47,21 @@
             <input class="field1" placeholder='' type='text'>
           </div>
         </div>
-
         <div class='form-row'>
           <div class='input-group'>
             <label for=''>PrivateKey:</label>
             <input class="field2" placeholder='' type='text'>
           </div>
         </div>
-
         <a class="button_choosefile">Choose Wallet File</a>
-
         <a class="button_signup">Create</a>
         <a class="button">Login</a>
       </div>
-
     </div>
 
-
   </div>
-
 </body>
+
 <script>
   if (typeof module === 'object') {
     window.module = module;
@@ -82,14 +70,12 @@
   var login = true;
 
 </script>
-
-<script src="assets/js/aes-min.js" charset="utf-8"></script>
-<script src="assets/js/store.js" charset="utf-8"></script>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/aro.js" charset="utf-8"></script>
-<script src="assets/js/aro_api.js" charset="utf-8"></script>
+<script src="assets/libraries/Crypt.js" charset="utf-8"></script>
+<script src="assets/libraries/JQuery.js"></script>
+<script src="assets/js/Store.js" charset="utf-8"></script>
+<script src="assets/js/api/Aro.lib.js" charset="utf-8"></script>
+<script src="assets/js/Wallet.js" charset="utf-8"></script>
 <script src="assets/login/login.js" charset="utf-8"></script>
-
 <script>
   if (window.module) module = window.module;
 

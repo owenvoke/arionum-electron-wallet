@@ -1,3 +1,4 @@
+/* INIT VARS */
 const electron = require( 'electron' )
 const {
   app,
@@ -6,17 +7,33 @@ const {
   BrowserWindow
 } = require( 'electron' )
 var path = require( 'path' )
-
 let mainWindow
 
-/*
-  width: 522,
-  height: 819,
-*/
+/* INIT PROGRAM*/
+loadApp();
 
+/* FUNCTIONS */
 
+function loadApp() {
+  app.on( 'ready', createWindow )
+
+  app.on( 'uncaughtException', function ( error ) {
+    alert( error )
+  } );
+
+  app.on( 'window-all-closed', function () {
+    app.exit();
+  } )
+
+  app.on( 'activate', function () {
+    if ( mainWindow === null ) {
+      createWindow()
+    }
+  } )
+}
 
 function createWindow() {
+
   mainWindow = new BrowserWindow( {
     webPreferences: {
       webSecurity: false
@@ -26,8 +43,24 @@ function createWindow() {
     transparent: true,
     frame: false,
     icon: path.join( __dirname, 'assets/icons/64x64.png' )
-  } )
+  } );
 
+  registerWindowEvents();
+  loadSite();
+}
+
+function loadSite() {
+  if ( checkData( "publickey" ) == "" )
+    mainWindow.loadFile( 'login.html' );
+  else {
+    mainWindow.setResizable( false );
+    mainWindow.setSize( 1318, 790, true );
+    mainWindow.center();
+    mainWindow.loadFile( 'index.html' );
+  }
+}
+
+function registerWindowEvents() {
   mainWindow.webContents.on( 'will-navigate', function ( event, newUrl ) {
     var new_site = newUrl.split( "/" )[ newUrl.split( "/" ).length - 1 ] + "";
     new_site = new_site.replace( ".html", "" );
@@ -45,25 +78,9 @@ function createWindow() {
       mainWindow.setResizable( false );
     }
   } );
-
-
-  if ( checkData( "publickey" ) == "" )
-    mainWindow.loadFile( 'login.html' );
-  else {
-    mainWindow.setResizable( false );
-    mainWindow.setSize( 1318, 790, true );
-    mainWindow.center();
-    mainWindow.loadFile( 'index.html' );
-  }
-
-
   mainWindow.on( 'closed', function () {
     mainWindow = null
   } )
-
-
-
-
 }
 
 
@@ -84,20 +101,3 @@ function parseDataFile( filePath, key ) {
     return "";
   }
 }
-
-app.on( 'ready', createWindow )
-
-
-app.on( 'uncaughtException', function ( error ) {
-  alert( error )
-} );
-
-app.on( 'window-all-closed', function () {
-  app.exit();
-} )
-
-app.on( 'activate', function () {
-  if ( mainWindow === null ) {
-    createWindow()
-  }
-} )

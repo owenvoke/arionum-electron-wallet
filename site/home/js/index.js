@@ -114,14 +114,14 @@ function setupTransactionTable( date, type, val, confirmations, from_adr, to, me
 
     row.addEventListener( "click", function ( e ) {
       showDialogue( "Transaction",
-        "<b>Date: </b>" + date_format + "<br>" +
+        "<p class='selectable'><b>Date: </b>" + date_format + "<br>" +
         "<b>Action: </b>" + type + "<br>" +
         "<b>Value: </b>" + val + "<br>" +
         "<b>Confirmations: </b>" + confirmations + "<br>" +
         "<b>From: </b>" + from_adr + "<br>" +
         "<b>To: </b>" + to + "<br>" +
         "<b>Message: </b>" + temp_message + "<br>" +
-        "<b>ID: </b>" + id + "<br>" );
+        "<b>ID: </b>" + id + "<br></p>" );
     }, false );
 
   } catch ( e ) {

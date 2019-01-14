@@ -2,7 +2,7 @@
 
 
 $( ".button" ).click( function () {
-  var value = 0.0002;
+  var value = parseFloat( $( ".amount" ).val() ).toFixed( 8 );
   var address_to = "";
 
   showDialogue( "Send a Transaction", "Do you really want to <b>send</b> your <b>" + value + " ARO</b> to " + address_to + "?", true, function () {

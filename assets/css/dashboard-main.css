@@ -269,6 +269,10 @@ background-image: -ms-linear-gradient(90deg, #3e45fe 0, #3d5afe 100%);
   height: 4em;
 }
 
+.selectable {
+  user-select: text;
+}
+
 .item-box .icon {
   display: inline-block;
   vertical-align: top;

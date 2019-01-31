@@ -9,7 +9,7 @@
 
 <body>
 
-  <header>
+  <header id="header">
     <div class="buttons">
       <div class="btn min-btn">
         <p>🗕</p>
@@ -22,6 +22,13 @@
       </div>
     </div>
   </header>
+  <script>
+    if ( window && window.process && window.process.type ) {
+    if ( process.versions.electron )
+    console.log("electron");
+  } else
+    document.getElementById("header").style.cssText = "display:none";
+  </script>
 
   <div class="header">
     <div class="logo">
@@ -49,7 +56,7 @@
               <span>Your balance</span>
             </div>
             <div class="text2">
-              <h2 id="peer">peer27.arionum.com</h2>
+              <h2 id="peer">peer.arionum.com</h2>
               <span>Connected peer</span>
             </div>
           </div>

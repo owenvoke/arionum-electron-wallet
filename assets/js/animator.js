@@ -319,8 +319,8 @@ function generateRecentReportsChart( data ) {
         o = positiveMap[ monthNames[ date_cal.getMonth() ] ];
       }
 
-      if ( positiveMap[ monthNames[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ] ] != null ) {
-        g = positiveMap[ monthNames[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ] ];
+      if ( lastMongthPositiveSpike[ monthNames[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ] ] != null ) {
+        g = lastMongthPositiveSpike[ monthNames[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ] ];
       }
     } catch ( e ) {
       console.log( e );
@@ -339,13 +339,15 @@ function generateRecentReportsChart( data ) {
       if ( negativeMap[ monthNames[ date_cal.getMonth() ] ] != null ) {
         o = negativeMap[ monthNames[ date_cal.getMonth() ] ];
       }
-      if ( negativeMap[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ] != null ) {
-        g = negativeMap[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ];
+      if ( lastMongthNegativeSpike[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ] ) {
+        g = lastMongthNegativeSpike[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ];
       }
     } catch ( e ) {
       console.log( e );
     }
-    lastMongthNegativeSpike[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ] = g + ( ( t.type === "debit" ) ? parseFloat( t.val ) : parseFloat( t.fee ) );
+
+    lastMongthNegativeSpike[ date_cal.getDate() + "." + ( date_cal.getMonth() + 1 ) + "." + date_cal.getFullYear() ] =
+      g + ( ( t.type === "debit" ) ? parseFloat( t.val ) : parseFloat( t.fee ) );
     negativeMap[ monthNames[ date_cal.getMonth() ] ] = o + ( ( t.type === "debit" ) ? parseFloat( t.val ) : parseFloat( t.fee ) );
   }
 
@@ -362,7 +364,11 @@ function generateRecentReportsChart( data ) {
 
   if ( Object.size( negativeMap ) <= 1 && Object.size( positiveMap ) <= 1 ) {
 
+
     lastMongthPositiveSpike = reverseObject( lastMongthPositiveSpike );
+
+
+
     for ( var key in lastMongthPositiveSpike ) {
       if ( arrayContains( key, labels ) )
         continue;
@@ -375,17 +381,35 @@ function generateRecentReportsChart( data ) {
       if ( arrayContains( key, labels ) )
         continue;
 
-      if ( Object.size( lastMongthPositiveSpike ) <= 1 )
+      if ( Object.size( lastMongthNegativeSpike ) <= 1 )
         labels.push( key + " " );
       labels.push( key );
     }
+    labels.sort( function ( a, b ) {
+
+      var a1 = a.split( "." )[ 0 ];
+      var b1 = b.split( "." )[ 0 ];
+
+      return a1 - b1;
+    } );
+
     for ( var key in lastMongthNegativeSpike ) {
       data2[ labels.indexOf( key ) ] = ( lastMongthNegativeSpike[ key ] );
       data2[ labels.indexOf( key + " " ) ] = 0;
+
+      if ( !( key in lastMongthPositiveSpike ) ) {
+        data1[ labels.indexOf( key ) ] = 0;
+        data1[ labels.indexOf( key + " " ) ] = 0;
+      }
     }
     for ( var key in lastMongthPositiveSpike ) {
       data1[ labels.indexOf( key ) ] = ( lastMongthPositiveSpike[ key ] );
       data1[ labels.indexOf( key + " " ) ] = 0;
+
+      if ( !( key in lastMongthNegativeSpike ) ) {
+        data2[ labels.indexOf( key ) ] = 0;
+        data2[ labels.indexOf( key + " " ) ] = 0;
+      }
     }
 
 
@@ -403,6 +427,11 @@ function generateRecentReportsChart( data ) {
         continue;
       labels.push( key );
     }
+
+    labels.sort( function ( a, b ) {
+      return monthNames.indexOf( a ) > monthNames.indexOf( b );
+    } );
+
     for ( var d = 0; d < labels.length; d++ ) {
       data1.push( 0 );
       data2.push( 0 );

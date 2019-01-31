@@ -30,13 +30,86 @@ var address = "";
 address = aro.getAddress( publickey );
 
 var cors_bypass = "https://cubedpixels.net:9080/";
+var peer_setup = false;
 var peer = "";
-if ( window && window.process && window.process.type ) {
-  if ( process.versions.electron )
-    peer = "http://peer1.arionum.com";
-} else
-  peer = cors_bypass + "http://peer1.arionum.com";
+var requestInit = true;
 
+function checkInit() {
+  if ( peer_setup )
+    init();
+  else
+    requestInit = true;
+}
+
+function setupPeer( peer_done ) {
+
+  if ( window && window.process && window.process.type ) {
+    if ( process.versions.electron )
+      peer = peer_done;
+  } else
+    peer = cors_bypass + peer_done.replace( "http://", "" );
+
+  peer_setup = true;
+
+  if ( $( "#peer" ) )
+    $( "#peer" ).text( peer.replace( "http://", "" ) );
+
+  if ( requestInit )
+    init();
+}
+
+function getFastestPeer( peers ) {
+  var lines = peers.split( '\n' );
+
+  var fastest_response = "";
+
+  $.xhrPool = [];
+  $.xhrPool.abortAll = function () {
+    $( this ).each( function ( i, jqXHR ) {
+      jqXHR.abort();
+      $.xhrPool.splice( i, 1 );
+    } );
+  }
+
+  for ( var i = 0; i < lines.length; i++ ) {
+    var peer_url = lines[ i ];
+    if ( peer_url == "" )
+      continue;
+    var ajax = $.ajax( {
+      url: peer_url,
+      success: function ( result ) {
+        console.log( "Response from: " + this.url );
+        if ( fastest_response == "" ) {
+          $.xhrPool.abortAll();
+          fastest_response = this.url;
+          setupPeer( fastest_response );
+        }
+      }
+    } );
+    $.xhrPool.push( ajax );
+  }
+
+
+
+}
+
+
+function downloadPeers() {
+
+  var request = $.ajax( {
+    url: "http://api.arionum.com/peers.txt"
+  } );
+
+  request.done( function ( peers ) {
+    getFastestPeer( peers );
+  } );
+
+  request.fail( function ( jqXHR, textStatus ) {
+    setupPeer( "http://peer1.arionum.com" );
+  } );
+}
+
+downloadPeers();
 setElectronHeight();
 
 function init() {
@@ -64,7 +137,7 @@ function setElectronHeight() {
   setTimeout( function () {
     $( ".content" ).removeClass( "animated_fast" );
     $( ".content" ).addClass( "animated" );
-    init();
+    checkInit();
   }, 100 )
 }
 

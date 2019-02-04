@@ -3,10 +3,21 @@ function loadView( name ) {
   $( ".content" ).removeClass( "done" );
   $( ".site_content" ).empty();
   setTimeout( function () {
+    $.ajax( {
+      async: true,
+      url: 'site/' + name.toLowerCase() + '/index.html',
+      success: function ( content ) {
+        $( ".site_content" ).html( content );
+        $( ".content" ).addClass( "done" );
+        $( ".loader" ).hide();
+      }
+    } );
+    /*
     $( ".site_content" ).load( 'site/' + name.toLowerCase() + '/index.html', function () {
       $( ".content" ).addClass( "done" );
       $( ".loader" ).hide();
     } );
+    */
   }, 1200 );
 }
 

@@ -22,6 +22,7 @@ function loadView( name ) {
 }
 
 
+
 $( ".site_loader" ).click( function () {
   loadView( $( this ).text() );
 } );

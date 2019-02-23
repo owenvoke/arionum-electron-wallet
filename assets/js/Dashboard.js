@@ -26,9 +26,12 @@ $( ".site_loader" ).click( function () {
   loadView( $( this ).text() );
 } );
 
-const ipc = require( 'electron' ).ipcRenderer
-ipc.send( 'resizable-disable' );
-ipc.send( 'resize-dashboard' );
+if ( is_electron ) {
+  const ipc = require( 'electron' ).ipcRenderer
+  ipc.send( 'resizable-disable' );
+  ipc.send( 'resize-dashboard' );
+}
+
 
 
 function showDialogue( title, content, question, accept, close_disabled ) {

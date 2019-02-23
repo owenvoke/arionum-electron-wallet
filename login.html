@@ -23,9 +23,14 @@
     </div>
   </header>
   <script>
+    var is_electron = false;
     if ( window && window.process && window.process.type ) {
     if ( process.versions.electron )
-    console.log("electron");
+    {
+    console.warn = function() {}
+      is_electron = true;
+      console.log("IS ELECTRON! = TRUE");
+    }
   } else
     document.getElementById("header").style.cssText = "display:none";
   </script>

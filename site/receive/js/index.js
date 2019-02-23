@@ -10,11 +10,15 @@ $( "#qrcode" ).prop( 'title', '' );
 
 
 function updateQRCode( text ) {
+$( "#qrcode" ).removeClass( "blurred" );
   $( "#qrcode" ).prop( 'title', '' );
   qrcode.clear();
   qrcode.makeCode( text );
 }
 
+$(".generate").click(function(){
+  updateQRCode("arosend"+"|"+address+"|"+$(".addresss").val()+"|"+"Arionum Request for "+$(".addresss").val()+" ARO");
+});
 
 $( ".address" ).val( address );
 $( ".alias" ).val( alias );

@@ -4,28 +4,59 @@ if ( store.get( "publickey" ) != "" )
   location.replace( "./index.html" );
 
 setTimeout( function () {
-  const ipc = require( 'electron' ).ipcRenderer
-  ipc.send( 'resizable-disable' );
-  ipc.send( 'resize-login' );
+  if ( is_electron ) {
+    const ipc = require( 'electron' ).ipcRenderer
+    ipc.send( 'resizable-disable' );
+    ipc.send( 'resize-login' );
+
+  }
+
+
+
 }, 10 );
 
 var file = false;
 $( ".button_choosefile" ).click( function () {
-  const {
-    dialog
-  } = require( 'electron' ).remote;
-  dialog.showOpenDialog( {
-    properties: [ 'openFile' ]
-  }, function ( files ) {
-    if ( files !== undefined ) {
-      requestPasswordWithFile( files[ 0 ] );
+  if ( is_electron ) {
+    const {
+      dialog
+    } = require( 'electron' ).remote;
+    dialog.showOpenDialog( {
+      properties: [ 'openFile' ]
+    }, function ( files ) {
+      if ( files !== undefined ) {
+
+        const fs = require( "fs" );
+        var data = fs.readFileSync( files[ 0 ] ) + "";
+        requestPasswordWithFile( data );
+      }
+    } );
+  } else {
+
+    var input = document.createElement( 'input' );
+    input.type = 'file';
+
+    input.onchange = e => {
+      var file = e.target.files[ 0 ];
+      console.log( "File chosen" );
+      var reader = new FileReader();
+      reader.readAsText( file, "UTF-8" );
+      reader.onload = function ( evt ) {
+        console.log( "File load" );
+        requestPasswordWithFile( evt.target.result );
+      }
     }
-  } );
+
+    input.click();
+
+
+  }
 } );
 
-function requestPasswordWithFile( path ) {
-  const fs = require( "fs" );
-  var data = fs.readFileSync( path ) + "";
+
+function requestPasswordWithFile( data ) {
+
+  console.log( "Request PW" );
 
   $( $( ".form-row" )[ 1 ] ).hide();
   $( ".button_choosefile" ).hide();
@@ -101,16 +132,32 @@ function requestPasswordAndLogin() {
     $( ".button" ).text( "Login" );
     file = true;
 
-    const path = require( 'path' );
-    const userDataPath = ( electron.app || electron.remote.app ).getPath( 'userData' );
-    var paths = path.join( userDataPath, 'wallet.aro' );
+    if ( is_electron ) {
+      const path = require( 'path' );
+      const userDataPath = ( electron.app || electron.remote.app ).getPath( 'userData' );
+      var paths = path.join( userDataPath, 'wallet.aro' );
 
-    aro.encryptAro( keypair.encoded, password ).then( encrypt => {
-      var fs = require( 'fs' );
-      fs.writeFileSync( paths, encrypt, 'utf-8' );
-    } );
+      aro.encryptAro( keypair.encoded, password ).then( encrypt => {
+        var fs = require( 'fs' );
+        fs.writeFileSync( paths, encrypt, 'utf-8' );
+      } );
 
-    console.log( paths );
+      console.log( paths );
+
+    } else {
+      aro.encryptAro( keypair.encoded, password ).then( encrypt => {
+        var text = encrypt;
+        var filename = "wallet.aro";
+        var element = document.createElement( 'a' );
+        element.setAttribute( 'href', 'data:text/plain;charset=utf-8,' + encodeURIComponent( text ) );
+        element.setAttribute( 'download', filename );
+        element.style.display = 'none';
+        document.body.appendChild( element );
+        element.click();
+        document.body.removeChild( element );
+      } );
+
+    }
 
     $( ".button" ).click( function () {
       requestPasswordWithFile( paths );

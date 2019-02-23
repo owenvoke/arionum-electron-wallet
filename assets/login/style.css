@@ -94,6 +94,7 @@ body {
 }
 
 .logo .aro-logo {
+  max-height: 100px;
   width: 60%;
 
   position: absolute;

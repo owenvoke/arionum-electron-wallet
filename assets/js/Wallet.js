@@ -2,6 +2,7 @@
 var aro = new aro;
 var instance = this;
 
+
 const store = new Store( {
   configName: 'arionum-config',
   defaults: {
@@ -15,11 +16,13 @@ const store = new Store( {
 //// TODO: DEBUG PZ8Tyr4Nx8MHsRAGMpZmZ6TWY63dXWSCwJ65ajWp8WD2zLcxtHBSzvuYQX1PmQVWtvFFfgKKxf7jKtJyfKPxwKKg8gCoFMyBjooCta93Am5sNDCJHsPYifd3
 var account = "";
 
+
 //PZ8Tyr4Nx8MHsRAGMpZmZ6TWY63dXWSCys8HWrmhES5nKR4G3JoLZRWC5Bcp4gRL8k4mxA53zyPQHSYhJRhBUFWBqeVKNfE5pU9ZpYj78DFYM7Lu3tZ5PZaL
 
 var publickey = store.get( "publickey" );
 var privatekey = store.get( "privatekey" );
 var alias = "";
+
 
 if ( typeof login == "undefined" )
   if ( publickey == "" )
@@ -42,17 +45,12 @@ function checkInit() {
 }
 
 function setupPeer( peer_done ) {
-
-  if ( window && window.process && window.process.type ) {
-    if ( process.versions.electron )
-      peer = peer_done;
-  } else
-    peer = cors_bypass + peer_done.replace( "http://", "" );
-
   peer_setup = true;
 
+  peer = peer_done;
+
   if ( $( "#peer" ) )
-    $( "#peer" ).text( peer.replace( "http://", "" ) );
+    $( "#peer" ).text( peer.replace( "http://", "" ).replace( cors_bypass, "" ) );
 
   if ( requestInit )
     init();
@@ -72,7 +70,7 @@ function getFastestPeer( peers ) {
   }
 
   for ( var i = 0; i < lines.length; i++ ) {
-    var peer_url = lines[ i ];
+    var peer_url = is_electron ? lines[ i ] : cors_bypass + lines[ i ];
     if ( peer_url == "" )
       continue;
     var ajax = $.ajax( {
@@ -97,15 +95,17 @@ function getFastestPeer( peers ) {
 function downloadPeers() {
 
   var request = $.ajax( {
-    url: "http://api.arionum.com/peers.txt"
+    url: is_electron ? "http://api.arionum.com/peers.txt" : cors_bypass + "http://api.arionum.com/peers.txt"
   } );
+
+  console.log(is_electron ? "http://api.arionum.com/peers.txt" : cors_bypass + "http://api.arionum.com/peers.txt");
 
   request.done( function ( peers ) {
     getFastestPeer( peers );
   } );
 
   request.fail( function ( jqXHR, textStatus ) {
-    setupPeer( "http://peer1.arionum.com" );
+    setupPeer( is_electron ? "http://peer1.arionum.com" : cors_bypass + "http://peer1.arionum.com" );
   } );
 }
 
@@ -229,20 +229,21 @@ function getJSONP( url, success ) {
 /* WINDOW */
 
 
+if ( is_electron ) {
+  var remote = require( 'electron' ).remote;
+  $( ".min-btn" ).click( function () {
+    var window = remote.getCurrentWindow();
+    window.minimize();
+  } );
 
-var remote = require( 'electron' ).remote;
-$( ".min-btn" ).click( function () {
-  var window = remote.getCurrentWindow();
-  window.minimize();
-} );
+  $( ".max-btn" ).click( function () {
+    var window = remote.getCurrentWindow();
+    if ( typeof login == "undefined" )
+      window.maximize();
+  } );
 
-$( ".max-btn" ).click( function () {
-  var window = remote.getCurrentWindow();
-  if ( typeof login == "undefined" )
-    window.maximize();
-} );
-
-$( ".close-btn" ).click( function () {
-  var window = remote.getCurrentWindow();
-  window.close();
-} );
+  $( ".close-btn" ).click( function () {
+    var window = remote.getCurrentWindow();
+    window.close();
+  } );
+}

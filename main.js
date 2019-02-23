@@ -11,6 +11,23 @@ const {
 var path = require('path')
 let mainWindow
 
+
+
+var iShouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.show();
+    mainWindow.focus();
+  }
+  return true;
+});
+if (iShouldQuit) {
+  app.quit();
+  return;
+}
+
+
+
 /* INIT PROGRAM*/
 loadApp();
 let isQuiting = false;
@@ -59,26 +76,33 @@ function createCallbacks() {
 var appIcon;
 
 function setupTray() {
-  const path = require('path');
-  const imgPath = path.join(process.resourcesPath, 'icon.ico')
-  console.log("Create Tray");
-  appIcon = new Tray(imgPath);
-  var contextMenu = Menu.buildFromTemplate([{
-      label: 'Show App',
-      click: function() {
-        loadSite();
-        mainWindow.show();
+  try {
+    const path = require('path');
+    const imgPath = path.join(__dirname, 'icon.ico')
+    console.log("Create Tray");
+    appIcon = new Tray(imgPath);
+    var contextMenu = Menu.buildFromTemplate([{
+        label: 'Show App',
+        click: function() {
+          loadSite();
+          mainWindow.show();
+        }
+      },
+      {
+        label: 'Quit',
+        click: function() {
+          app.isQuiting = true;
+          app.quit();
+        }
       }
-    },
-    {
-      label: 'Quit',
-      click: function() {
-        app.isQuiting = true;
-        app.quit();
-      }
-    }
-  ]);
-  appIcon.setContextMenu(contextMenu)
+    ]);
+    appIcon.setContextMenu(contextMenu)
+  } catch (e) {
+
+  } finally {
+
+  }
+
 }
 
 function createWindow() {
@@ -100,7 +124,7 @@ function createWindow() {
     event.preventDefault();
     mainWindow.hide();
   });
-  mainWindow.on('close', function() {
+  mainWindow.on('close', function(event) {
     if (!app.isQuiting) {
       event.preventDefault();
       mainWindow.minimize();

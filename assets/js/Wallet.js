@@ -31,7 +31,8 @@ if (typeof login == "undefined")
 var address = "";
 address = aro.getAddress(publickey);
 
-var cors_bypass = "https://cubedpixels.net:9080/";
+//var cors_bypass = "https://cubedpixels.net:9080/"; //=> ONLY FOR THE WEB VERSION ERGO => DEPRECATED
+var cors_bypass = "";
 var peer_setup = false;
 var peer = "";
 var requestInit = true;

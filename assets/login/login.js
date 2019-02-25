@@ -66,9 +66,9 @@ function requestPasswordWithFile(data) {
   file = true;
   $(".button").click(function() {
     try {
-      console.log($(".field1").val());
+      console.log("PW: " + $(".field1").val());
       console.log("DATA: " + data);
-      keypair = aro.decodeKeypair(data, $(".field1").val() + "");
+      keypair = aro.decodeKeypair(data, $(".field1").val());
       store.set('publickey', keypair.publicCoin);
       store.set('privatekey', CryptoJS.AES.encrypt(keypair.privateCoin, $(".field1").val()) + "");
       location.replace("./index.html");
@@ -134,14 +134,18 @@ function requestPasswordAndLogin() {
     $(".button").text("Login");
     file = true;
 
+    var encryped_s;
+
     if (is_electron) {
       const path = require('path');
       const userDataPath = (electron.app || electron.remote.app).getPath('userData');
       var paths = path.join(userDataPath, 'wallet.aro');
 
+
       aro.encryptAro(keypair.encoded, password2).then(encrypt => {
         var fs = require('fs');
         fs.writeFileSync(paths, encrypt, 'utf-8');
+        encryped_s = encrypt;
       });
 
       console.log(paths);
@@ -157,12 +161,13 @@ function requestPasswordAndLogin() {
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
+        encryped_s = encrypt;
       });
 
     }
 
     $(".button").click(function() {
-      requestPasswordWithFile(paths);
+      requestPasswordWithFile(encryped_s + "");
     });
 
   } else {

@@ -25,6 +25,7 @@ function encryptWithIv(text, password, iv) {
   crypted += cipher.final('base64');
   var combined = Buffer.concat([iv, Buffer.from(crypted)]);
   console.log("PW: " + password);
+  console.log("DATA: " + combined.toString('base64'));
   console.log(decryptWithIv(combined.toString('base64'), password));
   return combined.toString('base64');
 }
@@ -35,6 +36,10 @@ function splitString(string, size) {
 }
 
 function decryptWithIv(text, password) {
+  console.log("======================");
+  console.log("PW: " + password);
+  console.log("DATA: " + text);
+  console.log("======================");
   var raw = Buffer(text, 'base64');
   var iv = raw.slice(0, 16);
   var remain = raw.slice(16);
@@ -102,13 +107,14 @@ let aro = class aro {
   static decodeKeypair(encoded, pw) {
     if (looksEncrypted(encoded)) {
       if (!pw) {
-        throw new Error('Cannot decrypt without valid password');
+        throw new Error('KEY NOT GIVEN ! Cannot decrypt without valid password');
       }
       try {
         var work = decryptWithIv(encoded, pw);
-        return decodeKeypair(work, null);
+        console.log("DONE WITH IV");
+        return aro.decodeKeypair(work, null);
       } catch (e) {
-        throw new Error('Cannot decrypt without valid password');
+        console.log(e.stack);
       }
     }
     var parts = encoded.split(':');

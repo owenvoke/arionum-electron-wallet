@@ -1,5 +1,4 @@
 //INIT
-var aro = new aro;
 var instance = this;
 
 

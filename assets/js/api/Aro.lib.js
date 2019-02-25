@@ -24,6 +24,8 @@ function encryptWithIv(text, password, iv) {
   var crypted = cipher.update(text, 'utf8', 'base64')
   crypted += cipher.final('base64');
   var combined = Buffer.concat([iv, Buffer.from(crypted)]);
+  console.log("PW: " + password);
+  console.log(decryptWithIv(combined.toString('base64'), password));
   return combined.toString('base64');
 }
 

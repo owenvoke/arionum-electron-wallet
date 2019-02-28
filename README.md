@@ -1,4 +1,4 @@
-# Arionum-Electrum
+# Arionum-Electron
 
 [![Latest Version][ico-version]][link-releases]
 [![Software License][ico-license]](LICENSE)

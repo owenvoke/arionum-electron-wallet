@@ -12,7 +12,7 @@ An Arionum wallet written in JavaScript for cross-platform support.
 
 The MIT License. Please see [License File](LICENSE) for more information.
 
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-version]: https://img.shields.io/github/release-pre/cutecubed/arionum-electrum.svg?style=flat-square
+[ico-license]: https://img.shields.io/github/license/CuteCubed/Arionum-Electron.svg?style=for-the-badge
+[ico-version]: https://img.shields.io/github/release-pre/cutecubed/Arionum-Electron.svg?style=for-the-badge
 
 [link-releases]: https://github.com/cutecubed/arionum-electrum/releases/latest

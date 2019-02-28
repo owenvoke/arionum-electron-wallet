@@ -49,6 +49,36 @@ $(".button_choosefile").click(function() {
   }
 });
 
+function setHeight(jq_in) {
+  jq_in.each(function(index, elem) {
+    elem.style.height = elem.scrollHeight + 'px';
+  });
+}
+$(".button_print").click(function() {
+  $(".button_print").hide();
+  $(".button").hide();
+  $("h1").text("Arionum Paper Wallet");
+  var pkey = $(".field1").val();
+  var prkey = $(".field2").val();
+  var m1 = $("<textarea></textarea>");
+  var m2 = $("<textarea></textarea>");
+  $(".field1").hide();
+  $(".field1").after(m1);
+  m1.val(pkey);
+  $(".field2").hide();
+  $(".field2").after(m2);
+  m2.val(prkey);
+  setHeight($('textarea'));
+  window.print();
+  m1.hide();
+  m2.hide();
+  $(".field1").show();
+  $(".field2").show();
+  $("h1").text("Create");
+  $(".button_print").show();
+  $(".button").show();
+});
+
 
 function requestPasswordWithFile(data) {
 
@@ -57,6 +87,8 @@ function requestPasswordWithFile(data) {
   $(".button_signup").hide();
   $("h1").text("Security");
   $($(".form-row .input-group label")).text("Password");
+  $(".field1").prop("type", 'password');
+  $(".field2").prop("type", 'password');
   file = true;
   $(".button").click(function() {
     try {
@@ -81,7 +113,11 @@ $(".button_signup").click(function() {
     $(".button_signup").text("Login");
     $(".button").text("Create");
     $($(".form-row .input-group label")[0]).text("Password");
+    $(".field1").prop("type", 'password');
+    $(".field1").val("");
     $($(".form-row .input-group label")[1]).text("Repeat Password");
+    $(".field2").prop("type", 'password');
+    $(".field2").val("");
     $(".button_choosefile").hide();
   } else {
     $(".button_choosefile").show();
@@ -90,7 +126,11 @@ $(".button_signup").click(function() {
     $(".button").text("Login");
 
     $($(".form-row .input-group label")[0]).text("PublicKey");
+    $(".field1").prop("type", 'text');
+    $(".field1").val("");
     $($(".form-row .input-group label")[1]).text("PrivateKey");
+    $(".field2").prop("type", 'text');
+    $(".field2").val("");
   }
   signup = !signup;
 });
@@ -119,8 +159,11 @@ function requestPasswordAndLogin() {
 
     $($(".form-row .input-group label")[0]).text("PublicKey");
     $($(".form-row .input-group label")[1]).text("PrivateKey");
+    $(".field1").prop("type", 'text');
+    $(".field2").prop("type", 'text');
     $(".field1").val(keypair.publicCoin);
     $(".field2").val(keypair.privateCoin);
+    $(".button_print").show();
     $(".button_signup").hide();
     $(".button").text("Login");
     file = true;
@@ -185,7 +228,11 @@ function loginWithKeys() {
     $(".button_signup").hide();
     $(".button").text("Enter");
     $($(".form-row .input-group label")[0]).text("Password");
+    $(".field1").prop("type", 'password');
+    $(".field1").val("");
     $($(".form-row .input-group label")[1]).text("Repeat Password");
+    $(".field2").prop("type", 'password');
+    $(".field2").val("");
     file = true;
     $(".button").click(function() {
 

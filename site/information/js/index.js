@@ -43,7 +43,6 @@ $(".mobileQRbutton").click(function() {
         $(".mobileQRbutton").hide();
         $("#qrcode").removeClass("blurred");
       } catch (e) {
-        console.log(e);
         $($(".form-row .input-group label")).css("color", "red");
         setTimeout(function() {
           $($(".form-row .input-group label")).css("color", "");
@@ -65,7 +64,6 @@ $(".privatekeybutton").click(function() {
         $(".privatekeybutton").hide();
         $(".privatekey").removeClass("blurred");
       } catch (e) {
-        console.log(e);
         $($(".form-row .input-group label")).css("color", "red");
         setTimeout(function() {
           $($(".form-row .input-group label")).css("color", "");

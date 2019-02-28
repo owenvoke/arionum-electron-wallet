@@ -76,7 +76,6 @@ function getFastestPeer(peers) {
     var ajax = $.ajax({
       url: peer_url,
       success: function(result) {
-        console.log("Response from: " + this.url);
         if (fastest_response == "") {
           $.xhrPool.abortAll();
           fastest_response = this.url;
@@ -97,8 +96,6 @@ function downloadPeers() {
   var request = $.ajax({
     url: is_electron ? "http://api.arionum.com/peers.txt" : cors_bypass + "http://api.arionum.com/peers.txt"
   });
-
-  console.log(is_electron ? "http://api.arionum.com/peers.txt" : cors_bypass + "http://api.arionum.com/peers.txt");
 
   request.done(function(peers) {
     getFastestPeer(peers);

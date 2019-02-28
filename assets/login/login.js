@@ -1,5 +1,3 @@
-console.log("resize");
-
 if (store.get("publickey") != "")
   location.replace("./index.html");
 
@@ -38,11 +36,9 @@ $(".button_choosefile").click(function() {
 
     input.onchange = e => {
       var file = e.target.files[0];
-      console.log("File chosen");
       var reader = new FileReader();
       reader.readAsText(file, "UTF-8");
       reader.onload = function(evt) {
-        console.log("File load");
         requestPasswordWithFile(evt.target.result);
       }
     }
@@ -56,8 +52,6 @@ $(".button_choosefile").click(function() {
 
 function requestPasswordWithFile(data) {
 
-  console.log("Request PW");
-
   $($(".form-row")[1]).hide();
   $(".button_choosefile").hide();
   $(".button_signup").hide();
@@ -66,8 +60,6 @@ function requestPasswordWithFile(data) {
   file = true;
   $(".button").click(function() {
     try {
-      console.log("PW: " + $(".field1").val());
-      console.log("DATA: " + data);
       keypair = aro.decodeKeypair(data, $(".field1").val());
       store.set('publickey', keypair.publicCoin);
       store.set('privatekey', CryptoJS.AES.encrypt(keypair.privateCoin, $(".field1").val()) + "");
@@ -78,7 +70,6 @@ function requestPasswordWithFile(data) {
       setTimeout(function() {
         $($(".form-row .input-group label")).css("color", "");
       }, 1200);
-      console.log(e);
     }
   });
 }
@@ -148,7 +139,6 @@ function requestPasswordAndLogin() {
         encryped_s = encrypt;
       });
 
-      console.log(paths);
 
     } else {
       aro.encryptAro(keypair.encoded, password2).then(encrypt => {
@@ -185,7 +175,6 @@ function loginWithKeys() {
   if (private == "")
     private = $(".field1").val();
   var encoded = "arionum:" + private + ":" + $(".field1").val();
-  console.log(encoded);
   var keypair = aro.decodeKeypair(encoded);
 
   if ($(".field2 ").val() != "") {
@@ -228,7 +217,6 @@ function loginWithKeys() {
       setTimeout(function() {
         $($(".form-row .input-group label")).css("color", "");
       }, 1200);
-      console.log(e);
     }
 
   }

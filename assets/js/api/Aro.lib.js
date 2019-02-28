@@ -24,9 +24,6 @@ function encryptWithIv(text, password, iv) {
   var crypted = cipher.update(text, 'utf8', 'base64')
   crypted += cipher.final('base64');
   var combined = Buffer.concat([iv, Buffer.from(crypted)]);
-  console.log("PW: " + password);
-  console.log("DATA: " + combined.toString('base64'));
-  console.log(decryptWithIv(combined.toString('base64'), password));
   return combined.toString('base64');
 }
 
@@ -36,10 +33,6 @@ function splitString(string, size) {
 }
 
 function decryptWithIv(text, password) {
-  console.log("======================");
-  console.log("PW: " + password);
-  console.log("DATA: " + text);
-  console.log("======================");
   var raw = Buffer(text, 'base64');
   var iv = raw.slice(0, 16);
   var remain = raw.slice(16);
@@ -111,11 +104,8 @@ let aro = class aro {
       }
       try {
         var work = decryptWithIv(encoded, pw);
-        console.log("DONE WITH IV");
         return aro.decodeKeypair(work, null);
-      } catch (e) {
-        console.log(e.stack);
-      }
+      } catch (e) {}
     }
     var parts = encoded.split(':');
     if (parts.length !== 3 || parts[0] !== 'arionum') {

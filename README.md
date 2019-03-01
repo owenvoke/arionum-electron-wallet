@@ -36,7 +36,7 @@ $ npm run start  # Launch the wallet application
 
 **BETA RELEASE**
 ```
-Please test this version and report if any bug occours 
+Please test this version and report if any bug occurs 
 No guarantees are offered, for loss of coins or anything else.
 ```
 

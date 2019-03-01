@@ -5,10 +5,6 @@
 
 An Arionum wallet written in JavaScript for cross-platform support.
 
-## Install
-
-> THIS IS A PRE-ALPHA WALLET. WE DO NOT RECOMMEND IT FOR PRODUCTION USAGE.
-
 ## Usage
 
 **Production builds**

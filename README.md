@@ -9,12 +9,9 @@ An Arionum wallet written in JavaScript for cross-platform support.
 
 **Production builds**
 
-Run the following in a terminal:
+Install Node.js from https://nodejs.org/en/
 
-Install Node.js
-```bash 
-install node js first from https://nodejs.org/en/.
-```
+Run the following in the terminal:
 
 ```bash
 $ npm install    # Install npm dependencies
@@ -23,11 +20,9 @@ $ npm build      # Build production releases and output to the `./bin` directory
 
 **Development builds**
 
-For development, you can start the wallet simply using [`npm`][link-npm].
+Install Node.js from https://nodejs.org/en/
 
-```bash 
-install node js first from https://nodejs.org/en/.
-```
+Run the following in the terminal:
 
 ```bash
 $ npm install    # Install npm dependencies

@@ -18,6 +18,12 @@ function sha256(msg, format) {
   return crypto.createHash('sha256').update(msg).digest(enc);
 }
 
+function getSigningKeyFromEC(key) {
+  var pkBuf = key.getPrivate().toBuffer();
+  var pkBufI = BigInteger.fromBuffer(pkBuf);
+  return new bitcoin.ECPair(pkBufI);
+}
+
 function encryptWithIv(text, password, iv) {
   var pw = sha256(password, 'raw');
   var cipher = crypto.createCipheriv('aes-256-cbc', pw, iv)
@@ -144,4 +150,14 @@ let aro = class aro {
       key: keypair
     }
   }
+
+  static sign(key, msg) {
+    var hash = crypto.createHash('sha256').update(msg).digest();
+    var sig = key.sign(hash);
+    var derSign = sig.toDER();
+    console.log("Verify: " + key.verify(hash, derSign));
+    return Base58.encode(Buffer.from(derSign));
+  }
+
+
 };

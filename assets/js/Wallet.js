@@ -258,9 +258,8 @@ if (is_electron) {
   });
 
   $(".max-btn").click(function() {
-    var window = remote.getCurrentWindow();
-    if (typeof login == "undefined")
-      window.maximize();
+    const ipc = electron.ipcRenderer;
+    ipc.send('changeWindowState', "");
   });
 
   $(".close-btn").click(function() {

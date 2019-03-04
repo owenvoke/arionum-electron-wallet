@@ -89,14 +89,23 @@ function requestPasswordWithFile(data) {
   $($(".form-row .input-group label")).text("Password");
   $(".field1").prop("type", 'password');
   $(".field2").prop("type", 'password');
+
+  $(".field1").val("");
+  $(".field2").val("");
+
+
   file = true;
+  $(".button").unbind();
   $(".button").click(function() {
+
+    console.log(data);
     try {
       keypair = aro.decodeKeypair(data, $(".field1").val());
       store.set('publickey', keypair.publicCoin);
       store.set('privatekey', CryptoJS.AES.encrypt(keypair.privateCoin, $(".field1").val()) + "");
       location.replace("./index.html");
     } catch (e) {
+      console.log(e);
       $($(".form-row .input-group label")).css("color", "red");
       $(".field1").val("");
       setTimeout(function() {
@@ -136,6 +145,7 @@ $(".button_signup").click(function() {
 });
 
 $(".button").click(function() {
+  $(".button_print").hide();
   if (!file) {
     if (signup) {
       createWallet();
@@ -242,8 +252,8 @@ function loginWithKeys() {
       var paths = path.join(userDataPath, 'wallet.aro');
       aro.encryptAro(keypair.encoded, $(".field2 ").val()).then(encrypt => {
         fs.writeFileSync(paths, encrypt, 'utf-8');
+        requestPasswordWithFile(encrypt);
       });
-      requestPasswordWithFile(paths);
     });
   } else {
     const fs = require("fs");

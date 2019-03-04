@@ -61,6 +61,8 @@ function loadApp() {
 }
 console.log(path.join(__dirname, ''));
 
+var temp_maximized = false;
+
 function createCallbacks() {
   console.log("Create Callbacks");
   ipcMain.on('update-notify-value', function(event, arg) {
@@ -71,6 +73,10 @@ function createCallbacks() {
       message: arg,
       appID: ""
     });
+  });
+  ipcMain.on('changeWindowState', function(event, arg) {
+    temp_maximized ? mainWindow.unmaximize() : mainWindow.maximize()
+    temp_maximized = !temp_maximized;
   });
 }
 var appIcon;

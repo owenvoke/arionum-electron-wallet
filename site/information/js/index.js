@@ -24,6 +24,30 @@ function updateQRCode(text, size) {
 }
 
 
+$(".export").click(function() {
+
+  const {
+    dialog
+  } = require('electron').remote;
+  var fs = require('fs');
+
+  dialog.showSaveDialog(remote.getCurrentWindow(), {
+    title: 'wallet',
+    defaultPath: '~/wallet.aro'
+  }, function(fileName) {
+
+    if (fileName === undefined)
+      return;
+    const userDataPath = (electron.app || electron.remote.app).getPath('userData');
+    var paths = path.join(userDataPath, 'wallet.aro');
+    fs.copyFile(paths, fileName, (err) => {
+      if (err) throw err;
+    });
+  });
+
+
+});
+
 
 $(".address").val(address);
 $(".publickey").val(publickey);

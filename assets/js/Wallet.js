@@ -255,6 +255,8 @@ if (is_electron) {
   $(".min-btn").click(function() {
     var window = remote.getCurrentWindow();
     window.minimize();
+    const ipc = electron.ipcRenderer;
+    ipc.send('update-notify-value', "Minimized to SystemTray");
   });
 
   $(".max-btn").click(function() {
@@ -265,5 +267,7 @@ if (is_electron) {
   $(".close-btn").click(function() {
     var window = remote.getCurrentWindow();
     window.minimize();
+    const ipc = electron.ipcRenderer;
+    ipc.send('update-notify-value', "Minimized to SystemTray");
   });
 }

@@ -119,7 +119,7 @@ var signup = false;
 $(".button_signup").click(function() {
   if (!signup) {
     $("h1").text("Create");
-    $(".button_signup").text("Login");
+    $(".button_signup").text("Back");
     $(".button").text("Create");
     $($(".form-row .input-group label")[0]).text("Password");
     $(".field1").prop("type", 'password');

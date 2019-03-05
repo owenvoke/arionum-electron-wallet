@@ -79,18 +79,26 @@ function createCallbacks() {
     temp_maximized = !temp_maximized;
   });
 }
-var appIcon;
+var tray;
 
 function setupTray() {
   try {
     const path = require('path');
     const imgPath = path.join(__dirname, 'icon.ico')
     console.log("Create Tray");
-    appIcon = new Tray(imgPath);
+    tray = new Tray(imgPath);
+    tray.on('double-click', (event, bounds) => {
+      mainWindow.show();
+    });
+    tray.on('click', (event, bounds) => {
+      mainWindow.show();
+    });
+
     var contextMenu = Menu.buildFromTemplate([{
         label: 'Show App',
         click: function() {
           loadSite();
+          tray.setToolTip('Showing');
           mainWindow.show();
         }
       },
@@ -102,7 +110,8 @@ function setupTray() {
         }
       }
     ]);
-    appIcon.setContextMenu(contextMenu)
+    tray.setContextMenu(contextMenu)
+    tray.setTooltip('Error getting market price.');
   } catch (e) {
 
   } finally {
@@ -124,7 +133,8 @@ function createWindow() {
   });
 
   mainWindow.on('show', function() {
-    appIcon.setHighlightMode('always')
+    tray.setHighlightMode('always');
+    tray.setToolTip('Getting market price...');
   })
   mainWindow.on('minimize', function(event) {
     event.preventDefault();

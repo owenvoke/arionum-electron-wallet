@@ -30,12 +30,32 @@ if (iShouldQuit) {
 
 /* INIT PROGRAM*/
 loadApp();
+
+//DISPLAY WIDTH HEIGHT
+
+
 let isQuiting = false;
+var width = 0;
+var height = 0;
 
 /* FUNCTIONS */
 
 function loadApp() {
   app.on('ready', function() {
+    const {
+      widthX,
+      heightX
+    } = electron.screen.getPrimaryDisplay().workAreaSize;
+    width = widthX;
+    height = heightX;
+    if (width < defaultwidth) {
+      defaultwidth = width;
+      defaultheight = Math.trunc(defaultwidth / perception);
+    }
+    console.log(defaultwidth);
+    console.log(defaultheight);
+
+
     createCallbacks();
     setupTray();
     createWindow();
@@ -152,15 +172,21 @@ function createWindow() {
   loadSite();
 }
 
+var defaultwidth = 1318;
+var defaultheight = 790;
+var perception = defaultwidth / defaultheight;
+
+
 function loadSite() {
   if (checkData("publickey") == "") {
     mainWindow.loadFile('login.html');
     mainWindow.center();
   } else {
-    mainWindow.setResizable(false);
-    mainWindow.setSize(1318, 790, true);
+    mainWindow.setResizable(true);
+    mainWindow.setSize(defaultwidth, defaultheight, true);
     mainWindow.center();
     mainWindow.loadFile('index.html');
+    mainWindow.setResizable(false);
   }
 }
 
@@ -174,9 +200,10 @@ function registerWindowEvents() {
 
     if (new_site == "index") {
       //mainWindow.setResizable( true );
-      mainWindow.setResizable(false);
-      mainWindow.setSize(1318, 790, true);
+      mainWindow.setResizable(true);
+      mainWindow.setSize(defaultwidth, defaultheight, true);
       mainWindow.center();
+      mainWindow.setResizable(false);
     }
     if (new_site == "login") {
       mainWindow.setResizable(true);

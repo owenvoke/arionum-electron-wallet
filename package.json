@@ -4,7 +4,13 @@
   "description": "The Arionum Wallet",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "npm run build:windows:x64 && npm run build:windows:x86 && npm run build:osx && npm run build:linux",
+    "build:os": "electron-packager . app --overwrite --out export",
+    "build:win64": "npm run build:os -- --platform win32 --arch x64 --icon assets/icons/128x128.ico --version-string.CompanyName \"Arionum\" --version-string.FileDescription \"Arionum Wallet\" --version-string.ProductName \"Arionum Wallet\"",
+    "build:win32": "npm run build:os -- --platform win32 --arch ia32 --icon assets/icons/128x128.ico --version-string.CompanyName \"Arionum\" --version-string.FileDescription \"Arionum Wallet\" --version-string.ProductName \"Arionum Wallet\"",
+    "build:osx": "npm run build:os -- --platform darwin --arch x64 --icon assets/icons/128x128.icns",
+    "build:linux": "npm run build:os -- --platform linux --arch x64 --icon assets/icons/64x64.png --asar"
   },
   "keywords": [
     "Arionum",

@@ -15,7 +15,7 @@ Run the following in the terminal:
 
 ```bash
 $ npm install    # Install npm dependencies
-$ build-all.bat      # Build production releases and output to the `./bin` directory
+$ build-all.bat      # Build production releases and output to the `./export` directory
 ```
 
 **Development builds**

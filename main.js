@@ -145,8 +145,12 @@ function createWindow() {
   });
 
   mainWindow.on('show', function() {
-    tray.setHighlightMode('always');
-    tray.setToolTip('Getting market price...');
+    try {
+      tray.setHighlightMode('always');
+      tray.setToolTip('Getting market price...');
+    } catch (e) {
+      app.isQuiting = true;
+    }
   })
   mainWindow.on('minimize', function(event) {
     event.preventDefault();

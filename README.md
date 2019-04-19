@@ -15,7 +15,7 @@ Run the following in the terminal:
 
 ```bash
 $ npm install    # Install npm dependencies
-$ build-all.bat      # Build production releases and output to the `./export` directory
+$ npm install electron-packager -g; build-all.bat      # Install electron-packager and build production releases.The output is the `./export` directory
 ```
 
 **Development builds**

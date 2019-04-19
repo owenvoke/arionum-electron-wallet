@@ -16,7 +16,7 @@
   "author": "Cuby",
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "^3.1.4"
+    "electron": "^4.0"
   },
   "dependencies": {
     "base-x": "^3.0.5",

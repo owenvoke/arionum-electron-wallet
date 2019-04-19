@@ -13,18 +13,10 @@ let mainWindow
 
 
 
-var iShouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) mainWindow.restore();
-    mainWindow.show();
-    mainWindow.focus();
-  }
-  return true;
+app.requestSingleInstanceLock()
+app.on('second-instance', function(event, commandLine, workingDirectory) {
+  app.quit()
 });
-if (iShouldQuit) {
-  app.quit();
-  return;
-}
 
 
 

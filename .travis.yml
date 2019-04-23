@@ -1,0 +1,31 @@
+dist: trusty
+language: node_js
+
+node_js: "node"
+cache: npm
+
+before_install:
+- if [[ -z ${TRAVIS_TAG} ]]; then echo "Not a tag, no releases required" && travis_terminate 0; fi
+- sudo apt update && sudo apt install -y wine
+- export EXPORT_DIRECTORY="${TRAVIS_BUILD_DIR}/export"
+- export RELEASE_DIR="${EXPORT_DIRECTORY}/releases"
+- mkdir -p ${RELEASE_DIR}
+
+script:
+- npm run build
+- cd ${EXPORT_DIRECTORY}
+- for i in app-*/; do zip -r9 "${RELEASE_DIR}/$(basename ${i} /).zip" "${i}"; done
+- ls ${EXPORT_DIRECTORY}
+- cd ${TRAVIS_BUILD_DIR}
+
+deploy:
+  provider: releases
+  api_key: ${GITHUB_DEPLOY_KEY}
+  file:
+  - ${RELEASE_DIR}/app-darwin-x64.zip
+  - ${RELEASE_DIR}/app-linux-x64.zip
+  - ${RELEASE_DIR}/app-win32-ia32.zip
+  - ${RELEASE_DIR}/app-win32-x64.zip
+  skip_cleanup: true
+  on:
+    tags: true
